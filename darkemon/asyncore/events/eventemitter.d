@@ -7,7 +7,7 @@
  *
  */
 
-module darkemon.asyncore.eventemitter;
+module darkemon.asyncore.events.eventemitter;
 
 private import std.algorithm;
 
