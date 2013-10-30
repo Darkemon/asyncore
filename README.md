@@ -12,7 +12,7 @@ In developing now.
 ## Build
 
 At present only for Linux and FreeBSD (tested on Debian 7.0).
-To build via Makefile (dmd 0.62.3 is required):
+To build via Makefile (dmd 0.63.2 is required):
 
     make asyncore
     
