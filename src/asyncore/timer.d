@@ -43,7 +43,7 @@ class Timer : EventEmitter {
     this(Loop loop = null)
     {
       if (loop is null)
-        _loopPtr = uv_default_loop();
+        _loopPtr = DefaultLoop.getUvLoop();
       else
         _loopPtr = loop.getUvLoop();
 
