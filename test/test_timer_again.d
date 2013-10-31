@@ -1,8 +1,6 @@
 import asyncore.core;
 import asyncore.timer;
 
-private import asyncore.events.eventemitter : EventEmitter, Event;
-
 import std.stdio;
 
 void main()
