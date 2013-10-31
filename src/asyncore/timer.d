@@ -1,3 +1,11 @@
+/**
+ * Asynchronous timer.
+ *
+ * License: GNU GPL v2 (http://www.gnu.org/)
+ * Author:  Artyom Krasotin
+ *
+ */
+
 module asyncore.timer;
 
 private import asyncore.core;
@@ -53,8 +61,7 @@ class Timer : EventEmitter {
       if (isActive())
         stop();
 
-      uv_close(cast(uv_handle_t*)_timerPtr, null); // stop timer immediately
-      free(_timerPtr);
+      uv_close(cast(uv_handle_t*)_timerPtr, &close_cb);
     }
 
 
@@ -126,6 +133,11 @@ class Timer : EventEmitter {
         // It's faster than building TimerEvent object on each timeout event.
         self.emit(self._eventTimeout);
       }
+    }
+
+    extern (C) static void close_cb(uv_handle_t* handle)
+    {
+      free(handle);
     }
 
     void _emitError(string msg=null) {

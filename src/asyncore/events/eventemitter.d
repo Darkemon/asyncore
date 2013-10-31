@@ -37,6 +37,13 @@ interface IEventEmitter {
 class EventEmitter : IEventEmitter 
 {
   public:
+    this() {}
+
+    ~this() { 
+      removeAllListeners();
+    }
+
+
     nothrow
     void addListener(int eventId, in listener_t listener)
     {
@@ -90,6 +97,9 @@ class EventEmitter : IEventEmitter
         auto listenerList = _listeners[eventId];
         foreach (listener; listenerList)
         {
+          if (_listeners.length == 0)
+            return;
+
           if (listener)
             listener(event);
         }
