@@ -3,6 +3,7 @@ test:
 	dmd -ofout/test/benchmark_million_timers -Iout/di out/asyncore.a test/benchmark_million_timers.d
 
 	dmd -ofout/test/test_timer_again -Iout/di out/asyncore.a test/test_timer_again.d
+	dmd -ofout/test/test_timer -Iout/di out/asyncore.a test/test_timer.d
 
 asyncore: uv
 	mkdir -p out/di/asyncore
