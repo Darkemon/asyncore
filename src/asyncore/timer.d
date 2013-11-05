@@ -51,7 +51,7 @@ class Timer : EventEmitter {
       _timerPtr.data = cast(void*)this;
 
       // For more performance.
-      _eventTimeout = new TimerEvent(TimerEvent.TIMEOUT, this);
+      _eventTimeout = new TimerEvent(TimerEvent.TIMEOUT);
 
       int ret = uv_timer_init(_loopPtr, _timerPtr);
     }
@@ -143,10 +143,10 @@ class Timer : EventEmitter {
     void _emitError(string msg=null) {
       TimerEvent e;
       if (msg)
-        e = new TimerEvent(TimerEvent.ERROR, this, msg);
+        e = new TimerEvent(TimerEvent.ERROR, msg);
       else {
         uv_err_t error = uv_last_error(_loopPtr);
-        e = new TimerEvent(TimerEvent.ERROR, this, asyncore_strerror(error));
+        e = new TimerEvent(TimerEvent.ERROR, asyncore_strerror(error));
       }
       emit(e);
     }
@@ -160,15 +160,12 @@ class TimerEvent : Event
     static immutable int ERROR   = 1;
 
     @property const string message() { return _msg; }
-    @property Timer source() { return _src; }
 
-    this(int eventId, Timer src, string msg=null) { 
+    this(int eventId, string msg=null) { 
       super(eventId);
       _msg = msg;
-      _src = src;
     }
 
   private:
     string _msg;
-    Timer  _src;
 }

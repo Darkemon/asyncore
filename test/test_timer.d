@@ -19,12 +19,13 @@ void main()
   {
     writefln("ONCE_CB %d\n", once_cb_called);
     TimerEvent event = cast(TimerEvent)e;
-    
-    assert(!event.source.isActive());
+    auto t = cast(Timer)event.source;
+
+    assert(!t.isActive());
 
     once_cb_called++;
 
-    destroy(event.source);
+    destroy(t);
 
     /* Just call this randomly for the code coverage. */
     uv_update_time(uv_default_loop());
@@ -34,13 +35,14 @@ void main()
   {
     writefln("REPEAT_CB\n");
     TimerEvent event = cast(TimerEvent)e;
+    auto t = cast(Timer)event.source;
 
-    assert(event.source.isActive());
+    assert(t.isActive());
 
     repeat_cb_called++;
 
     if (repeat_cb_called == 5) {
-      destroy(event.source);
+      destroy(t);
     }
   }
 

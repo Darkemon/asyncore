@@ -20,8 +20,12 @@ class Event {
     @property pure nothrow 
     int id() const { return _id; }
 
+    @property pure nothrow 
+    Object source() { return _src; }
+
   private:
-    int _id;
+    int    _id;
+    Object _src;
 }
 
 interface IEventEmitter {
@@ -31,7 +35,7 @@ interface IEventEmitter {
   void addListener(int eventId, in listener_t listener);
   void removeListener(int eventId, in listener_t listener);
   void removeAllListeners(int eventId);
-  void emit(in Event event);
+  void emit(Event event);
 }
 
 class EventEmitter : IEventEmitter 
@@ -90,9 +94,11 @@ class EventEmitter : IEventEmitter
       _listeners.clear();
     }
 
-    void emit(in Event event)
+    void emit(Event event)
     {
       int eventId = event.id;
+      event._src = this;
+      
       if (eventId in _listeners) {
         auto listenerList = _listeners[eventId];
         foreach (listener; listenerList)
