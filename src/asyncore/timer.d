@@ -53,7 +53,7 @@ class Timer : EventEmitter {
       // For more performance.
       _eventTimeout = new TimerEvent(TimerEvent.TIMEOUT);
 
-      if (uv_timer_init(_loopPtr, _timerPtr != 0)) {
+      if (uv_timer_init(_loopPtr, _timerPtr) != 0) {
         uv_err_t error = uv_last_error(_loopPtr);
         throw new Exception(asyncore_strerror(error));
       }
