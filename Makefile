@@ -4,6 +4,7 @@ test:
 
 	dmd -ofout/test/test_timer_again -Iout/di out/asyncore.a test/test_timer_again.d
 	dmd -ofout/test/test_timer -Iout/di out/asyncore.a test/test_timer.d
+	dmd -ofout/test/test_signal -Iout/di out/asyncore.a test/test_signal.d
 
 asyncore: uv
 	mkdir -p out/di/asyncore
